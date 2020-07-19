@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략">
+      <UniqueIdentifier>{e450f1d1-c6d6-4278-b655-eda94e9b68cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략\그래프">
+      <UniqueIdentifier>{2d46dc7e-4eca-4339-a5dd-01a0b5c22a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략\그래프\깊이우선탐색%28DFS%29">
+      <UniqueIdentifier>{647df372-8ac5-4416-8f86-81de5ed5a7ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략\그래프\너비우선탐색%28BFS%29">
+      <UniqueIdentifier>{38f2b2e5-4839-4570-afed-0d4091a83f7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략\선형자료구조">
+      <UniqueIdentifier>{04e6346a-b54c-410e-b45f-b06ff56545a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략\선형자료구조\Linked list">
+      <UniqueIdentifier>{f32b4f34-946c-4497-9453-a395b5146eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\백준알고리즘">
+      <UniqueIdentifier>{bb10aece-d97c-4929-8b00-06a2b18ff369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\백준알고리즘\DFS,BFS">
+      <UniqueIdentifier>{64afc23e-a954-4706-8701-03bdd57c4708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\백준알고리즘\함수">
+      <UniqueIdentifier>{1894515e-4248-4216-b1df-a76825a54b6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\알고리즘문제해결전략\탐욕법">
+      <UniqueIdentifier>{a6f59c38-392b-4c39-9395-7d76bb63a4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\백준알고리즘\Greedy algorithm">
+      <UniqueIdentifier>{fa64dc11-6974-44e9-a219-67e2cf41a747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\백준알고리즘\인공지능">
+      <UniqueIdentifier>{94987178-b5b8-4cc6-a668-6a6c26b39413}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="별찍기.cpp">
+      <Filter>소스 파일\백준알고리즘\함수</Filter>
+    </ClCompile>
+    <ClCompile Include="DFS와 BFS(1단계).cpp">
+      <Filter>소스 파일\백준알고리즘\DFS,BFS</Filter>
+    </ClCompile>
+    <ClCompile Include="DFS와 BFS(1단계답).cpp">
+      <Filter>소스 파일\백준알고리즘\DFS,BFS</Filter>
+    </ClCompile>
+    <ClCompile Include="DFS 기본 코드.cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\그래프\깊이우선탐색%28DFS%29</Filter>
+    </ClCompile>
+    <ClCompile Include="고대어사전문제(p836).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\그래프\깊이우선탐색%28DFS%29</Filter>
+    </ClCompile>
+    <ClCompile Include="바이러스(2단계).cpp">
+      <Filter>소스 파일\백준알고리즘\DFS,BFS</Filter>
+    </ClCompile>
+    <ClCompile Include="틀.cpp">
+      <Filter>소스 파일\백준알고리즘</Filter>
+    </ClCompile>
+    <ClCompile Include="BFS 기본 코드%28p882%29.cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\그래프\너비우선탐색%28BFS%29</Filter>
+    </ClCompile>
+    <ClCompile Include="최단경로를 계산하는 너비우선탐색(p885).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\그래프\너비우선탐색%28BFS%29</Filter>
+    </ClCompile>
+    <ClCompile Include="SortingGame 문제(p886).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\그래프\너비우선탐색%28BFS%29</Filter>
+    </ClCompile>
+    <ClCompile Include="조제푸스 문제(p620).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\선형자료구조\Linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="틀2.cpp">
+      <Filter>소스 파일\알고리즘문제해결전략</Filter>
+    </ClCompile>
+    <ClCompile Include="회의실예약(p370).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\탐욕법</Filter>
+    </ClCompile>
+    <ClCompile Include="출전 순서 정하기(p375).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\탐욕법</Filter>
+    </ClCompile>
+    <ClCompile Include="도시락 데우기(p376).cpp">
+      <Filter>소스 파일\알고리즘문제해결전략\탐욕법</Filter>
+    </ClCompile>
+    <ClCompile Include="동전0.cpp">
+      <Filter>소스 파일\백준알고리즘\Greedy algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="동전0해답.cpp">
+      <Filter>소스 파일\백준알고리즘\Greedy algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="회의실배정.cpp">
+      <Filter>소스 파일\백준알고리즘\Greedy algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="회의실배정답.cpp">
+      <Filter>소스 파일\백준알고리즘\Greedy algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="ATM.cpp">
+      <Filter>소스 파일\백준알고리즘\Greedy algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="로프.cpp">
+      <Filter>소스 파일\백준알고리즘\Greedy algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="yooyoungjun.cpp">
+      <Filter>소스 파일\백준알고리즘\인공지능</Filter>
+    </ClCompile>
+    <ClCompile Include="youngjun.cpp">
+      <Filter>소스 파일\백준알고리즘</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Input.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
