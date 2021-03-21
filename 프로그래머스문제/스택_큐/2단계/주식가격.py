@@ -2,6 +2,27 @@
 #아이디어 시간 8:20~8:35
 #구현 시간 : 8:35~9:00
 
+#베스트 코드 기반 내 풀이
+from collections import deque
+
+def solution(prices):
+    answer = []    
+    prices=deque(prices)
+    
+    while prices:
+        p=prices.popleft()
+        cnt=0
+        
+        for i in prices:
+            if p>i:
+                cnt+=1
+                break
+            cnt+=1
+            
+        answer.append(cnt)
+    
+    return answer
+
 #처음 풀이 
 def solution(prices):
     answer = []
@@ -31,7 +52,7 @@ def solution(prices):
   return answer
   
 #베스트 코드
-  #dequeue 사용
+    #dequeue 사용
    
 from collections import deque
 def solution(prices):
@@ -50,8 +71,3 @@ def solution(prices):
         answer.append(count)
 
     return answer
-  
-  
-  
-  
-  
