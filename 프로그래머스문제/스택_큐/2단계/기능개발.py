@@ -1,3 +1,4 @@
+#https://programmers.co.kr/learn/courses/30/lessons/42586
 #12:55 ~ 13:50
 #실패
 def solution(progresses, speeds):
