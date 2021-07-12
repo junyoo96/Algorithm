@@ -1,6 +1,6 @@
 # 6:15 / 7 : 09
 # 트럭은 1초에 1칸씩 움직임 
-# 
+# F
 
 def solution(bridge_length, weight, truck_weights):
     answer = 0 # 걸린 시간 
