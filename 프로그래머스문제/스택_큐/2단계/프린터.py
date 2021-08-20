@@ -1,27 +1,26 @@
-from collections import deque
+# 2ㅅㅣㄱㅏㄴ ㅊㅗㄱㅗㅏ 
 
 def solution(priorities, location):
-    answer = 0
+    answer = 
     priorities = deque(priorities)
-    length = len(priorities)
-    
+    m = max(priorities)
     while priorities:
-    
         doc = priorities.popleft()
-        answer += 1
-        location -= 1
-        for priority in priorities:
-            if doc < priority: 
-                priorities.append(doc)
-
-                if location < 0:
-                    location = length-1
-                answer-=1
-                break
-
-        if location == 0:
-            answer+=1
-            break
         
+        if doc == m:
+            answer += 1
             
+            if location == 0:
+                break 
+            else:
+                location -= 1
+            m = max(priorities)
+        else:
+            priorities.append(doc)
+            
+            if location == 0:
+                location = len(priorities)-1
+            else:
+                location -= 1
+    
     return answer
