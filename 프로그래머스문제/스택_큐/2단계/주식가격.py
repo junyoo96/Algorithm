@@ -6,19 +6,19 @@
 from collections import deque
 
 def solution(prices):
-    answer = []    
+    # answer = 몇초 후 가격이 떨어지는지 저장하는 배열
+    answer = []
+    
     prices=deque(prices)
     
-    while prices:
-        p=prices.popleft()
-        cnt=0
-        
-        for i in prices:
-            if p>i:
-                cnt+=1
-                break
+    while prices: 
+        price = prices.popleft()
+        cnt = 0 
+        for p in prices: 
             cnt+=1
-            
+            if price > p: 
+                break 
+        
         answer.append(cnt)
     
     return answer
