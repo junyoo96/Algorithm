@@ -1,4 +1,6 @@
 # 왕실의나이트(p115)
+# input : a1
+# output : 2
 
 loc = input()
 # 8가지 방향 정의 
