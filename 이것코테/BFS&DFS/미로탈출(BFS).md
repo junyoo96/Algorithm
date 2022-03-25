@@ -2,7 +2,7 @@
 - BFS
 
 # 주요 코드 개념 
-![Uploading image.png…]()
+![캡처](https://user-images.githubusercontent.com/25860354/160046927-cea8051d-97e5-480b-ab4f-f8b0ff748959.JPG)
 - 좌표 문제 일 때 상,하,좌,우 리스트로 정의
 - 최단 거리 구하는 방법 
   - 출발지에서 현재 방문한 노드까지의 거리 = 이전노드 거리 + 1 하면서 진행 
