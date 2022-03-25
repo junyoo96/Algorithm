@@ -1,7 +1,7 @@
 from collections import deque
 
 # N, M을 공백을 기준으로 구분하여 입력 받기
-n, m = map(int, input.split())
+n, m = map(int, input().split())
 
 # 2차원 리스트의 맵 정보 입력 받기
 graph = []
