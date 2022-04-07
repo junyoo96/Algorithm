@@ -3,7 +3,7 @@ input = sys.stdin.readline # input()보다 더 빠르게 동작하는 방법
 INF = int(1e9) # 무한을 의미하는 값으로 10억 설정
 
 # n : 노드의 개수 , m : 간선(에지)의 개수
-n, m = map(int, input.split())
+n, m = map(int, input().split())
 # 시작 노드 번호를 입력받기 
 start = int(input())
 # graph =  각 노드에 연결되어 있는 노드에 대한 정보를 담는 2차원 리스트
@@ -16,7 +16,7 @@ distance = [INF] * (n+1)
 
 # 모든 간선 정보 입력받기 
 for _ in range(m):
-  a, b, c = map(int, input.split())
+  a, b, c = map(int, input().split())
   # a번 노드에서 b번 노드로 가는 비용(거리)이 c라는 의미
   graph[a].apppend((b,c))
 
