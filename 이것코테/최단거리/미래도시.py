@@ -3,10 +3,10 @@ INF = int(1e9)
 # 입력받기 
 # n : 전체 회사의 개수 
 # m : 전체 경로의 개수 
-n, m = map(int, input.split())
+n, m = map(int, input().split())
 # x : 물건 판매 회사 노드 번녿(최종 목적지 노드)
 # k : 소개팅 회사 번호 (거쳐갈 노드)
-x, k = map(int, input.split())
+x, k = map(int, input().split())
 
 # 그래프 초기화 
 # 2차원 리스트(그래프 표현)을 만들고, 모든 값을 무한으로 초기화 
@@ -20,7 +20,7 @@ for a in range(1, n+1):
 
 # 각 간선에 대한 정보를 입력받아, 그 값으로 초기화 
 for _ in range(m):
-  a, b = map(int, input.split())
+  a, b = map(int, input().split())
   graph[a][b] = 1
   graph[b][a] = 1
 
