@@ -9,25 +9,26 @@ def solution(food_times, k):
     q = []
     for i in range(len(food_times)):
         # (음식 시간, 음식 번호) 형태로 우선순위 큐에 삽입
-        heapq.heappush(q, (food_times[i] , i + 1))
+        heapq.heappush(q, (food_times[i] , i + 1)) # 주의 - 음식 번호 1번부터, heapq 사용법
 
-    sum_value = 0 # 먹기 위해 사용한 시간
+    sum_value = 0 # 지금까지 먹기 위해 사용한 전체 시간
     previous = 0 # 직전에 다 먹은 음식 시간
-    length = len(food_times) # 남은 음식의 개수
+    length = len(food_times) # 남은 음식의 개수 # 주의 - len(food_times)
 
     # (sum_value + (현재의 음식 시간 - 이전 음식 시간) * 현재 음식 개수) 한 시간이 k(방송이 중단되는 시간 전이라면)
         # 현재의 음식 시간 - 이전 음식 시간
             # 시간이 적은 음식부터 먹는데 지나간 시간을 계산을 한번에 계산할 때
             # 현재의 음식 시간을 현재 음식 개수만큼 곱해서 더해주게 되면 실제로 그만큼 시간이 지나간 것이 것이 아니라, 이전 음식 시간을 더해줄 때 현재 음식 시간도 같이 그만큼 처리가 된것이므로
             # 실제로는 이전 음식을 다먹는데 걸리는 시간과 현재 음식을 다 먹는데 걸리는 시간의 차이 * 현재 음식개수 만큼만 더해주어야함
-    while sum_value + ((q[0][0] - previous) * length) <= k:
+    while sum_value + ((q[0][0] - previous) * length) <= k: # 주의 - now가 아니라 q[0][0]
         now = heapq.heappop(q)[0] # 현재 음식만을 먹는데 걸리는 시간
-        sum_value += (now - previous) * length # 현재 음식을 다 먹는데 걸리는 시간
+        sum_value += (now - previous) * length # 현재 음식을 다 먹는데 걸리는 시간 더해줌
         length -= 1 # 다 먹은 음식 제외
         previous = now # 이전 음식 시간 재설정
 
     # 남은 음식 중에서 몇번째 음식인지 확인하여 출력
-    result = sorted(q, key = lambda x : x[1]) # 음식의 번호 기준으로 정렬
+        # 음식의 번호 기준으로 정렬
+    result = sorted(q, key = lambda x : x[1]) # 주의 - sorted, lambda
     # k- sum_value
         # 네트워크 지연 시간에서 현재까지 음식먹었던 누적 시간을 빼줌(아까, 누적시간이 네트워크 지연 시간을 넘어가 버리면 그 때 먹으려고 했던 음식에서 다시 계산해주어야되서)
     # (k - sum_value) % length
