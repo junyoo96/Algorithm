@@ -93,8 +93,6 @@ def binary_search(array, target, start, end, cnt):
     else:
         return binary_search(array, target, mid + 1, end, cnt)
 
-
-
 n, target = list(map(int, input().split()))
 numbers = list(map(int, input().split()))
 
