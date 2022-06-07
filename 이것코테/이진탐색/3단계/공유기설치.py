@@ -11,7 +11,7 @@ for _ in range(n):
 # 이진 탐색 수행 위해 정렬 수행
 array.sort()
 
-start = array[1] - array[0] # 가장 작은 인접한 두 공유기 사이 거리
+start = 1 # 가장 작은 인접한 두 공유기 사이 거리
 end = array[-1] - array[0] # 가장 큰 인접한 두 공유기 사이 거리
 result = 0 # 가장 인접한 두 공유기 사이 거리
 
