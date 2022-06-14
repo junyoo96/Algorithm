@@ -14,7 +14,7 @@ distance = [INF] * (n+1)
 
 # 모든 간선 정보를 입력받기 
 for _ in range(m):
-  # 특정도시 x에서 다른 특정도시 y로 이어지는 통로가있는데, 메시지가 전  달되는 시간이 z라는 의미 
+  # 특정도시 x에서 다른 특정도시 y로 이어지는 통로가있는데, 메시지가 전달되는 시간이 z라는 의미
   x, y, z = map(int, input().split())
   graph[x].append((y,z))
 
@@ -24,7 +24,7 @@ def dijkstra(start):
   # 시작 노드로 가기 위한 최단 경로는 0으로 설정하여, 큐에 삽입
   heapq.headpush(q,(0,start))
   distance[start] = 0 
-  while q : # 우선순위 큐가 비어있지 않다면 
+  while q: # 우선순위 큐가 비어있지 않다면
     # 가장 최단 거리가 짧은 노드에 대한 정보를 꺼내기 
     dist, now = heapq.heapop(q)
     # 이미 처리된(방문한) 노드라면 
@@ -53,4 +53,4 @@ for d in distance:
     max_distance = max(max_distance, d)
 
 # -1 하는 이유는 출발 도시(시작 노드)는 도시 개수에서 제외해야 되기 때문 
-print(count -1, max_distance)
+print(count - 1, max_distance)
