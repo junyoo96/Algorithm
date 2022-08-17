@@ -16,8 +16,8 @@ for _ in range(m):
     graph[start].append(end)
 
 # 모든 도시에 대한 최단 거리 초기화 
-distance = [-1] * (n + 1) 
-distance[x] = 0 # 출발 도시까지의 거리는 0으로 설정 
+distance = [-1] * (n + 1) # 주의 - -1로 초기화
+distance[x] = 0 # 출발 도시까지의 거리는 0으로 설정 # 주의 - 출발도시까지의 거리는 0으로 설정
 
 # BFS(너비우선탐색) 수행 
 queue = deque([x])
@@ -32,6 +32,7 @@ while queue:
       queue.append(next)
 
 # 최단 거리가 K인 모든 도시의 번호를 오름차순으로 출력
+# 주의 - 최단 거리 도시번호를 저장하는 변수없이 check 변수를 사용해 출력 가능
 check = False
 for i in range(1, n + 1):
   if distance[i] == k:
