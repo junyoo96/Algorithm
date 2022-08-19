@@ -19,9 +19,10 @@ graph = []
 data = []
 
 for i in range(n):
-    graph.append(list(map(int, input().split())))
+    graph.append(list(map(int, input().split()))) # 주의
     for j in range(n):
-        # 바이러스 정보 넣기(바이러스 종류, 해당 바이러스가 몇초 지난 후 갱신됐는지, 바이러스위치 x, y)
+        # 주의 - 바이러스 정보 넣기(바이러스 종류, 해당 바이러스가 몇초 지난 후 갱신됐는지, 바이러스위치 x, y)
+            # 주의 - 바이러스 정보에 몇초가 지난후 갱신된 바이러스인지를 포함시켜서 나중에 정해진 시간과 일치하면 while문을 빠져나가게 하는 역할을 하게함
         if graph[i][j] != 0:
             data.append((graph[i][j], 0, i, j))
 
