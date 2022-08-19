@@ -1,4 +1,4 @@
-n, m = map(int, input().split())
+n, m = map(int, input().split()) # n : 세로(행) , m : 가로(열)
 data = [] # 원본 지도 
 temp = [[0] * m for _ in range(n)] # 임시 지도 
 
@@ -6,8 +6,8 @@ for _ in range(n):
   data.append(list(map(int, input().split())))
 
 # 4가지 이동 방향(상, 우, 하, 좌)에 대한 리스트
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
+dx = [-1, 0, 1, 0] # 행
+dy = [0, 1, 0, -1] # 열
 
 # 안전 여역의 최대 크기 
 result = 0
