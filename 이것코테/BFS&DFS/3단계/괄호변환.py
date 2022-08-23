@@ -1,10 +1,10 @@
-# 9:20~
+# 11:45~12:25
 from collections import deque
 
 # 균형잡힌 괄호 문자열의 인덱스 반환
 def get_balanced_index(text):
     cnt = 0 #왼쪽 괄호의 개수
-    for idx, c in enumerate(text):
+    for idx, c in enumerate(text): # 주의 - enumerate로 인덱스와 값 동시에 뽑기
         if c == '(':
             cnt += 1
         else:
@@ -53,5 +53,5 @@ def solution(p):
                 u[i] = ')'
             else:
                 u[i] = '('
-        answer += "".join(u)
+        answer += "".join(u) # 주의 - list를 string으로 변환해서 붙이기(list가 빈칸이면 "[]"가 문자열에 붙는 문제 해결가능)
     return answer
