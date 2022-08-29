@@ -1,5 +1,6 @@
-# 9:11~9:50
-# 10:47~11:51
+# 9:11~9:50 / 10:47~11:51
+# 9:46~9:56 / 10:06~
+
 # n : 복도의 크기
 # T : 선생님
 # S : 학생
@@ -12,9 +13,7 @@
 # 모든 학생이 감시 피할 수 있게
 
 # 출력 - 장애물 설치해서 모든 학생이 선생님의 감시 피할 수 있는지 YES OR NO
-
 #==================================================================================
-
 from itertools import combinations
 import copy
 
@@ -48,9 +47,7 @@ def find_student(data, x, y, direction, isFound):
     elif data[x][y] == 'S':
         return True
         # 학생 발견함수(복도, x+dx[방향], y+ dy[방향], 방향, 발견 여부)
-    isFound = find_student(data, x + dx[direction], y + dy[direction], direction, isFound)
-
-    return isFound
+    return find_student(data, x + dx[direction], y + dy[direction], direction, isFound)
 
 # 복도 장애물 중복 조합(순서 상관없이) 3개 생성
 obstacle_candidates = combinations(emptys, 3)
@@ -59,8 +56,8 @@ obstacle_candidates = combinations(emptys, 3)
 for obstacles in obstacle_candidates:
     # 장애물 설치한 복제 복도 생성
     new_data = copy.deepcopy(map)
-    for obstacle in obstacles:
-        new_data[obstacle[0]][obstacle[1]] = 'O'
+    for obstacle in obstacles: # 주의 - dictionary 여러개 for문 사용가능
+        new_data[obstacle[0]][obstacle[1]] = 'O' # 주의 - dictionary 첫번째 원소와 , 두번째 원소 접근 방법
     # 선생님 위치 반복하면서
     isFound = False
     for tx, ty in teachers:
