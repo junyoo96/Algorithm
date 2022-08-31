@@ -21,7 +21,7 @@ from collections import deque
 # 이동 가능한 위치들을 반환하는 함수
 def get_next_pos(pos,board):
     next_pos = [] # 반환 결과(이동 가능한 위치들)
-    pos = list(pos) # 현재 위치 정보를 리스트로 변환(집합, 리스트)
+    pos = list(pos) # 리스트로 변환하기 위해 현재 위치 정보를 리스트로 변환(Set -> 리스트)
     pos1_x, pos1_y, pos2_x, pos2_y = pos[0][0], pos[0][1], pos[1][0], pos[1][1]
 
     # 1. 상우하좌로 이동하는 경우에 대해 처리
@@ -38,7 +38,7 @@ def get_next_pos(pos,board):
     if pos1_x == pos2_x:
         # 위쪽으로 회전하거나, 아래쪽으로 회전
         for i in [-1, 1]:
-            # 축이 pos1일때와 pos2일때 움직인 칸이 둘다 비어있는 경우
+            # 축이 pos1일때와 pos2일때 움직인 목적지 칸인 둘다 비어있는 경우 , 중요 - 움직인 목적지 칸이 둘다 비어있는 경우에만 위치를 추가함으로 회전중간에 벽이 없는 것도 보장할 수 있음
             if board[pos1_x + i][pos1_y] == 0 and board[pos2_x + i][pos2_y] == 0:
                 next_pos.append({(pos1_x, pos1_y), (pos1_x + i, pos1_y)})
                 next_pos.append({(pos2_x, pos2_y), (pos2_x + i, pos2_y)})
@@ -64,19 +64,19 @@ def solution(board):
     # BFS 수행
     q = deque()
     visited = []
-    pos = {(1,1), (1,2)} # 로봇 시작 위치 설정
-    # 큐에 현재 좌표 위치와 출발지부터의 거리를 저장
+    pos = {(1,1), (1,2)} # 로봇 시작 위치 설정, 중요 - Set(집합) 자료형으로 관리하면 한번 방문한(큐에 들어간) 로봇의 상태는 두번 방문하지 않음
+    # 큐에 현재 좌표 위치와 출발지부터의 거리를 저장, 중요 - 출발지부터의 거리를 같이 저장하는 것
     q.append((pos, 0))
     visited.append(pos) # 방문 처리
     # 큐가 빌 때까지 반복
     while q:
         pos, cost = q.popleft()
         # (n,n) 위치에 로봇이 도달했다면, 최단 거리이므로 변환
-        if (n,n) in pos:
+        if (n,n) in pos: # 주의 - 로봇의 위치중 한쪽만이라도 목적지 n,n에 도달하면 되므로 in 사용
             return cost
         # 현재 위치에서 이동할 수 있는 위치 확인
         for next_pos in get_next_pos(pos, new_board):
-            # 아직 방문하지 않은 위치라면 큐에 삽입하고 방문 처리
+            # 아직 방문하지 않은 위치라면 큐에 삽입하고 방문 처리, 중요 - 이미 방문한 좌표를 리스트에 저장하고 리스트에 존재하는지 찾는 방식으로 확인
             if next_pos not in visited:
                 q.append((next_pos, cost + 1))
                 visited.append(next_pos)
