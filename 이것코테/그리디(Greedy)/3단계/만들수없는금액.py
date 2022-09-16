@@ -1,4 +1,5 @@
-#12:56~
+# 12:56~
+# 틀림
 
 n = int(input())
 coins = list(map(int, input().split()))
@@ -7,6 +8,9 @@ coins.sort() # 동전 오름차순 정렬
 # 현재 상태를 1 ~ target-1 까지의 모든 금액을 만들 수 있는 상태라 가정
 
 # 만들고자 하는 금액을 1원부터 시작
+# target이 의미하는 것은 현재까지 주어진 동전으로 만들수 있는 금액의 + 1 된 것
+    # target까지는 주어진 동전의 조합으로 모두 만들 수 있는 것이 보장됨
+# 따라서 새로 주어지는 coin이 target보다 크다면 target에 해당하는 금액을 만들 수 없게됨
 target = 1
 for coin in coins:
     # 매번 target인 금액도 만들 수 있는지 체크하기
@@ -14,12 +18,10 @@ for coin in coins:
     if target < coin:
         break
     # 해당 금액을 만들 수 있다면, target의 값을 업데이트
-        # 현재 코인 만들고자 하는 금액보다 적은 경우, (만들고자 하는 금액 + 현재 코인) 까지 만들 수 있다는 의미가 되기 때문에 만들고자 하는 금액을 높임
+        # 현재 코인 만들고자 하는 금액보다 적은 경우, ((만들고자 하는 금액 + 현재 코인) - 1)의 금액 까지 만들 수 있다는 의미가 되기 때문에 만들고자 하는 금액을 높임
     target += coin
 
 print(target)
-
-
 
 #========================================================================
 # from itertools import combinations # 주의 - itertools.combinations
