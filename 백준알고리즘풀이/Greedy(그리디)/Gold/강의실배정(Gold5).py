@@ -10,14 +10,14 @@ import sys
 import heapq
 
 # n 입력
-n = int(input())
+n = int(sys.stdin.readline())
 # 수업 시간(시작시간 , 끝시간) 입력
 times = [tuple(map(int, sys.stdin.readline().split())) for _ in range(n)]
 # 중요 - 수업 시간 시작 시간을 기준으로 정렬
 times.sort()
 
 # 강의실의 수업 끝 시간 저장 리스트
-rooms = []
+rooms = [] # 주의 - heapq로 사용할거여도 일단 리스트로 선언
 # 중요 - 첫번째 수업을 우선순위 큐에 추가
     # 우선순위 큐 : 수업의 끝 시간들이 정렬 상태를 유지할 수 있도록함
 heapq.heappush(rooms, times[0][1])
