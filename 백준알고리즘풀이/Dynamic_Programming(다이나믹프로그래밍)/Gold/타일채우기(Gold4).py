@@ -25,4 +25,3 @@ for i in range(4, n + 1, 2):
 
 answer = dp[n]
 print(answer)
-
