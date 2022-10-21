@@ -1,72 +1,77 @@
-#게임개발(p.120)
-#input 
-'''
-4 4 
-1 1 0 
-1 1 1 1
-1 0 0 1 
-1 1 0 1 
-1 1 1 1
-'''
-#output : 3
+# 9:21~9:45/9:55~ - 문제 완벽히 이해 못함
 
-# 게임맵 사이즈 입력받기
+# 맵
+    # n : 행
+    # m : 열
+    # 각각의 칸은 육지 또는 바다
+# 캐릭터는 북동남서(0,1,2,3)중 한고 바라봄
+    # 상하좌우로 이동 가능
+    # 바다 공간에는 가지 못함
+    # 메뉴얼
+        # 1. 현재 위치에서 현재 방향 기준으로 왼쪽 방향부터 차례대로 갈곳 정함
+        # 캐릭터의 왼쪽 방향에 아직 가보지 못한 칸이 존재하면, 왼쪽 방향으로 회전후 왼쪽으로 한칸 전진
+        # 왼쪽 방향에 가보지 않은 칸이 없다면 왼쪽 방향으로 회전만 수행하고 1단계로 돌아감
+        # 만약 네 방향 모두 갔거나 바다인 경우, 바라보는 방향 유지하고 한칸 뒤로가고 1단계로 돌아감
+            # 뒤쪽 방향이 바다인 경우 움직임 멈춤
+# answer : 이동을 멈출때까지 이동한 칸 수
+#=================================================================================
+import sys
+input = sys.stdin.readline
+
+# n 입력, m 입력
 n, m = map(int, input().split())
-
-# 방문한 위치를 저장하기 위한 맵 생성해 0으로 초기화 
-d = [[0] * m for _ in range(n)]
-
-# 현재 캐릭터의 X, Y 좌표 방향을 입력받기  
+# x, y, 방향 입력
 x, y, direction = map(int, input().split())
-d[x][y] = 1 # 현재 좌표 방문 처리 
-
-# 전체 맵 정보 입력받기 
-array = []
-for i in range(n):
-	array.append(list(map(int, input().split())))
-
-# 북,동,남,서 방향 정의 
+# 맵 입력
+data = [list(map(int, input().split())) for _ in range(n)]
+# 방문 리스트
+dp = [[0] * m for _ in range(n)]
+dp[x][y] = 1
+# 방향 리스트
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 
-# 왼쪽으로 회전 
-def turn_left():
-	global direction
-	direction -= 1
-	if direction == -1: 
-		direction = 3
-
-
-count = 1
+# answer 변수
+answer = 1 # 주의 - 처음 칸도 방문한 칸에 포함
+# 이동했는지 여부 변수(false)
 turn_time = 0
-# 시뮬레이션 시작 
+# 무한으로 반복하면서 - while
 while True:
-	turn_left()
-	tmp_dx = x + dx[direction]
-	tmp_dy = y + dy[direction]
-	# 회전한 이후 정면에 가보지 않은 칸이 존재하는 경우 이동 
-	if d[tmp_dx][tmp_dy] == 0 and array[tmp_dx][tmp_dy] == 0:
-		d[tmp_dx][tmp_dy] = 1
-		x = tmp_dx
-		y = tmp_dy
-		count += 1
-		turn_time = 0
-		continue
-	# 정면에 가보지 않은 칸이 없거나 바다인 경우 
-	else:
-		turn_time += 1
+    direction -= 1
+    if direction == -1:
+        direction = 3
 
-# 네 방향 모두 갈 수 없는 경우 
-	if turn_time == 4:
-		tmp_dx = x - dx[direction]
-		tmp_dy = y - dy[direction]
-		# 뒤가 바다로 막혀있는 경우 
-		if array[tmp_dx][tmp_dy] == 0:
-			x = tmp_dx
-			y = tmp_dy
-		else:
-			break
-		turn_time = 0
+    nx = x + dx[direction]
+    ny = y + dy[direction]
+    # 만약 왼쪽 방향의 칸이 아직 가보지 못한 칸이고 육지라면
+    if dp[nx][ny] == 0 and data[nx][ny] == 0:
+        # 캐리터 좌표 왼쪽으로 한칸 이동
+        x = nx
+        y = ny
+        # 해당 칸 방문 처리
+        dp[nx][ny] = 1
+        # answer 증가
+        answer += 1
+        # 이동여부 변수 true로 갱신
+        turn_time = 0
+        # break
+        continue
+        # 이외의 경우
+    else:
+        turn_time += 1
 
-#정답 출력 
-print(count)
+    # 4방향 모두 이미 갔거나 바다라면(이동했는지 변수가 false라면)
+    if turn_time == 4:
+        nx = x - dx[direction] # 주의 - 마이너스 연산 사용해서 뒷방향 계산하기
+        ny = y - dy[direction]
+
+        # 만약 뒤쪽 방향 칸이 바다라면
+        if data[nx][ny] == 1:
+            break
+        # 한칸 뒤로 이동
+        x = nx
+        y = ny
+        turn_time = 0
+
+# answer 출력
+print(answer)
