@@ -5,7 +5,7 @@ def rotate_a_matrix_by_90_degree(key):
     n = len(key)
     m = len(key[0])
     result = [[0] * n for _ in range(m)] # key 원본인 훼손안되게 크기가 같은 이중 리스트 생성
-    #회전식(암기)
+    # 주의 - 회전시키는 알고리즘 암기하기
     for i in range(n): # 행
         for j in range(m): # 열
             result[j][n - i - 1] = key[i][j] # 암기
@@ -36,11 +36,12 @@ def solution(key, lock):
     for rotation in range(4):
         # 3. 열쇠 회전
         key = rotate_a_matrix_by_90_degree(key)
-        # 자물쇠에 열쇠를 끼워 넣기
+        # 열쇠를 이동하며 자물쇠에 열쇠가 맞는지 확인
         for x in range(n * 2):
             for y in range(n * 2):
                 for i in range(m):
                     for j in range(m):
+                        # 주의 - 예를들어 n이 3일때 (x+i)가 새로운 자물쇠의 끝부분 인덱스인 8까지 갈 필요가 없는 이유는 열쇠가 자물쇠영역을 아예 벗어나는 것이기 때문에 연산을 할 필요가 없기 때문
                         new_lock[x + i][y + j] += key[i][j]
                 # 4. 새로운 자물쇠에 열쇠가 정확히 맞는지 검사
                 if check(new_lock) == True:
