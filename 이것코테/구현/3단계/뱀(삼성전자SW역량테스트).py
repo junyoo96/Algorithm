@@ -39,7 +39,7 @@ def simulate():
         nx = x + dx[direction] # 이동한 뱀 머리 위치
         ny = y + dy[direction] # 이동한 뱀 머리 위치
 
-        # 맵 범위 안에 있고, 뱀의 몸통이 없는 위치라면(뱀이 조재하는 위치가 2로 표시되고 있으니까)
+        # 맵 범위 안에 있고, 뱀의 몸통이 없는 위치라면(뱀이 존재하는 곳은 2로 표시되고 있으니까)
         if 1 <= nx and nx <= n and 1 <= ny and ny <= n and data[nx][ny] != 2:
             # 사과가 없다면 이동 후에 꼬리 제거
             if data[nx][ny] == 0:
