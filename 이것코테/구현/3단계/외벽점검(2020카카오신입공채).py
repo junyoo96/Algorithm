@@ -1,3 +1,6 @@
+# 아이디어 생각 못함
+# 12:00~ / 아이디어 생각 못함
+
 # 친구들의 순열을 생성하기 위해 사용
 from itertools import permutations
 
@@ -10,7 +13,7 @@ def solution(n, weak, dist):
     # dist : 각 친구가 1시간 동안 이동할 수 있는 거리가 담긴 배열
     
   length = len(weak) # 취약 지점의 개수 
-  # 길이를 2배로 늘려서 원형을 일자 형태로 변형  
+  # 주의 - 길이를 2배로 늘려서 원형을 일자 형태로 변형
   for i in range(length):
     # 취약 지점 위치에 외벽의 총 둘레를 더해주어 추가하기 
     weak.append(weak[i] + n)
@@ -33,11 +36,11 @@ def solution(n, weak, dist):
           # 더 친구 투입이 불가능하다면 종료
           if count > len(dist): 
             break
-          # 해당 친까 점검할 수 있는 마지막 위치
+          # 해당 친구가 점검할 수 있는 마지막 위치
           position = weak[index] + friends[count - 1]
       # 투입한 친구 최소값 계산 
       answer = min(answer, count)
   # 투입해야되는 친구가 존재하는 친구보다 많은 경우 
   if answer > len(dist):
     return -1 
-  return answer 
+  return answer
