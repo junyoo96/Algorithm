@@ -40,12 +40,12 @@
 # 변수 선언 및 입력
 n, m, h, k = tuple(map(int, input().split()))
 
-# 각 칸에 있는 도망자 저장
+# 각 칸에 있는 도망자(도망자가 바라보고 있는 방향만) 저장
 hiders = [
     [[] for _ in range(n)]
     for _ in range(n)
 ]
-# 임시로 도망자가 이동할 칸 저장
+# 임시로 움직인 칸에 도망자가 바라보고 있는 방향만 저장
 next_hiders = [
     [[] for _ in range(n)]
     for _ in range(n)
@@ -235,6 +235,7 @@ def get_score(t):
         # 격자를 벗어나지 않으며, 나무가 없는 위치라면 도망자들을 전부 잡음
         if in_range(nx, ny) and not tree[nx][ny]:
             # 해당 위치의 도망자 수 만큼 점수를 얻게됨
+            # 주의 - 격자 한칸에 도망자들이 여러명 있을 수 있음
             answer += t * len(hiders[nx][ny])
             # 도망자들이 사라지게 됨
             hiders[nx][ny] = []
