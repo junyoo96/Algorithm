@@ -69,11 +69,13 @@ def dfs(x, y):
 
 # 그룹을 형성하기
 def make_group():
+    # 주의 - group_n은 int이므로 immutable 객체이기 때문에 global 사용
+    # 주의 - group_cnt, group은 list이므로 mutable 객체이기 때문에 global 사용안해도 전역변수의 변경 가능
     global group_n
 
     group_n = 0
 
-    # 방문 여부 초기화
+    # 주의 - 방문 여부 초기화
     for i in range(n):
         for j in range(n):
             visited[i][j] = False
@@ -82,6 +84,7 @@ def make_group():
     for i in range(n):
         for j in range(n):
             if not visited[i][j]:
+                # 주의
                 group_n += 1
                 visited[i][j] = True
                 # 그룹 표시
@@ -91,14 +94,14 @@ def make_group():
                 # dfs 호출
                 dfs(i, j)
 
-# 예술 점수 계산 함수
+# 주의 - 예술 점수 계산 함수
 def get_art_score():
     art_score = 0
 
     # 특정 변을 사이에 두고 두 칸의 그룹이 다른 경우라면,
     # (그룹 a에 속한 칸의 수 + 그룹 b에 속한 칸의 수) x 그룹 a를 이루고 있는 숫자 값 x 그룹 b를 이루고 있는 숫자 값
     # 만큼 예술 점수가 더해짐
-    # 즉, 예술점수 구하는 방식을 변의 개수를 for문으로 풀어서 처리했음
+    # 주의 -  즉, 예술점수 구하는 방식을 변의 개수를 for문으로 풀어서 처리했음
         # 원래공식 : 예술점수 = (그룹 a에 속한 칸의 수 + 그룹 b에 속한 칸의 수) x 그룹 a를 이루고 있는 숫자 값 x 그룹 b를 이루고 있는 숫자 값 * 그룹 a와 그룹 b가 서로 맞닿아 있는 변의 수
         # 코드에서의 처리
             # 그룹끼리 맞닿아 있는 횟수 만큼 반복하면서
@@ -107,7 +110,7 @@ def get_art_score():
         for j in range(n):
             for d in range(4):
                 nx, ny = i + dx[d], j + dy[d]
-                # 만약 인접한 좌표가 올바른 범위 내에 있고 현재좌표와 인접한 좌표가 다르다면(특정 변을 사이에 두고 있다면)
+                # 만약 인접한 좌표가 올바른 범위 내에 있고 현재좌표와 인접한 좌표가 다른 그룹이라면(다른 그룹끼리 특정 변을 사이에 두고 있다면)
                 if in_range(nx, ny) and arr[i][j] != arr[nx][ny]:
                     # 각 칸의 그룹을 확인
                     g1, g2 = group[i][j], group[nx][ny]
@@ -118,7 +121,7 @@ def get_art_score():
                     # 예술점수 계산
                     art_score += (cnt1 + cnt2) * num1 * num2
 
-    # 중복 계산을 제외해줌
+    # 주의 - 중복 계산을 제외해줌
         # 예를 들어 (0,0), (0,1)이 특정 변을 사이에 두고 있다면,
         # (0,0) 차례 때 변 개수를 증가하고, 또 (1,1) 차례 때 변 개수를 증가시켜 2번 중복해 증가시키기 때문
     return art_score // 2
@@ -131,7 +134,7 @@ def get_score():
     # 예술 점수 계산
     return get_art_score()
 
-# 정사각형 회전
+# 주의 - 정사각형 회전
 # sx, sy : 회전하려는 영역의 맨 왼쪽위 좌표
 # square_n : 회전하려는 영역의 길이
 def rotate_square(sx, sy, square_n):
@@ -140,9 +143,9 @@ def rotate_square(sx, sy, square_n):
         for y in range(sy, sy + square_n):
             # Step 1. (sx, sy)를 (0, 0)으로 옮겨주는 변환을 진행합니다.
             ox, oy = x - sx, y - sy
-            # Step 2. 변환된 상태에서는 회전 이후의 좌표가 (x, y) -> (y, square_n - x - 1)가 됩니다.
+            # 주의 - Step 2. 변환된 상태에서는 회전 이후의 좌표가 (x, y) -> (y, square_n - x - 1)가 됩니다.
             rx, ry = oy, square_n - ox - 1
-            # Step 3. 다시 (sx, sy)를 더해줍니다.
+            # 주의 - Step 3. 다시 (sx, sy)를 더해줍니다.
             next_arr[rx + sx][ry + sy] = arr[x][y]
 
 # 중요
@@ -162,7 +165,7 @@ def rotate():
             if j == n // 2:
                 next_arr[j][i] = arr[i][j]
             # Case 2 - 2. 가로줄 처리
-            # 가로줄에 대해서는 (i, j) -> (n - j - 1, i)가 됩니다.
+            # 주의 - 가로줄에 대해서는 (i, j) -> (n - j - 1, i)가 됩니다.
             elif i == n // 2:
                 next_arr[n - j - 1][i] = arr[i][j]
 
@@ -177,7 +180,7 @@ def rotate():
     # 오른쪽밑 정사각형 회전
     rotate_square(square_n + 1, square_n + 1, square_n)
 
-    # Step 3. next arr값을 다시 옮겨줍니다.
+    # 주의 - Step 3. next arr값으로 arr값 갱신
     for i in range(n):
         for j in range(n):
             arr[i][j] = next_arr[i][j]
