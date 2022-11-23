@@ -2,20 +2,21 @@
 import sys
 
 input = sys.stdin.readline
-
 target = int(input())
-answer = abs(100 - target)
 num = int(input())
-broken_buttons = []
-if num:
-    broken_buttons = list(input().split())
+broken = list(input().split())
+current = 100
+
+answer = abs(current - target)
 
 for channel in range(1000001):
-    for c in str(channel):
-        if c in broken_buttons:
+    tmp = str(channel)
+    for i in range(len(tmp)):
+        if tmp[i] in broken:
             break
-    else:
-        answer = min(answer, len(str(channel)) + abs(channel - target))
+        else:
+            if i == len(tmp) - 1:
+                answer = min(answer, len(tmp) + abs(channel - target))
 
 print(answer)
 
