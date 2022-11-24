@@ -1,0 +1,5 @@
+#Intellij project files
+.idea
+.idea/*.xml
+연습.py
+연습2.py
