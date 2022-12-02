@@ -1,4 +1,5 @@
 # 최적화 코드
+import math
 from collections import deque
 
 # testcase 개수 입력
@@ -9,7 +10,7 @@ t = int(input())
 # 0,1은 소수가 아니므로 False, 이외는 일단 True로 설정
 prime_check = [False, False] + [True] * (9998)
 # False가 아닌 수(지워지지 않은 수) 중 제일 작은 숫자를 소수로 채택하고, 현재 채택한 숫자의 나머지 배수를 모두 False로 처리(지우기)하는 과정
-for i in range(2, 10000): # 중요 - 제곱근 범위까지만 조사
+for i in range(2, int(math.sqrt(10000))): # 중요 - 제곱근 범위까지만 조사, 주의 - math.sqrt 결과값은 float형이므로 int로 형변환 해야함
     # 만약 현재 숫자가 False가 아니라면(지워지지 않은 숫자 중에서)
     if prime_check[i]:
         # 현재 숫자의 나머지 배수를 모두 False 처리(지우기)
@@ -27,10 +28,10 @@ for _ in range(t):
     queue = deque()
     queue.append((start, 0))
 
-    # 1000~9999까지 방문 여부 표시 리스트 생성
-    visited = [0] * 10000
+    # 숫자 방문 여부 표시 리스트 생성
+    visited = [False] * 10000
     # 현재 숫자 방문처리
-    visited[start] = 1
+    visited[start] = True
 
     while queue:
         # deque에서 현재소수 popleft
@@ -50,9 +51,9 @@ for _ in range(t):
                 tmp = int(str_current[:i] + str(j) + str_current[i + 1:])
 
                 # 만약 방문한적 없고, 소수이며, 1000이상인 숫자라면
-                if visited[tmp] == 0 and prime_check[tmp] and tmp >= 1000:
+                if not visited[tmp] and prime_check[tmp] and tmp >= 1000:
                     # 방문처리
-                    visited[tmp] = 1
+                    visited[tmp] = True
                     # 해당 소수 queue에 추가
                     queue.append([tmp, count + 1]) # 주의 - 쌍의 형태 데이터를 저장할 때 값을 바꾸는 경우도 있을수 있기 때문에 앞으로, tuple형태가 아닌 리스트로 형태로 넣기
 
