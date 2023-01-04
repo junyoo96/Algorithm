@@ -82,12 +82,12 @@ b = "a:b:c:d"
 # 문자 → ASCII 코드 값
 # b -> 98
 #=============================================================
-# Python 정규표현식 - 틀림 X
+# Python 정규표현식 - 틀림 X X
 def inPalindrome(str):
-    pass
+    return str
 
 a = '0Madam, I\'m Adam0'
-inPalindrome(a)
+print(inPalindrome(a))
 #0madamimadam0
 
 
