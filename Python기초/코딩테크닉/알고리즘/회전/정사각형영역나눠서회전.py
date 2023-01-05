@@ -16,6 +16,7 @@ arr = [
 length = len(arr)
 rotated_arr = copy.deepcopy(arr)
 
+# 정사각형 회전 함수 - 틀림 X
 def rotate_square():
     # 여기 구현
     pass
