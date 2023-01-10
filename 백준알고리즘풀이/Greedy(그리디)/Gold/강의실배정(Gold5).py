@@ -1,4 +1,5 @@
 # 9:43~10:12 / 10:22~
+# 12:10~12:25 / 12:25~ - 틀림(수업 끝나는 기준으로 정렬해서 틀림)
 
 # n : 수업 수
 # 최소의 강의실을 사용해서 모든 수업을 가능하게 해야함
@@ -8,11 +9,13 @@
 #============================================================================================================
 import sys
 import heapq
+input = sys.stdin.readline
+
 
 # n 입력
-n = int(sys.stdin.readline())
-# 수업 시간(시작시간 , 끝시간) 입력
-times = [tuple(map(int, sys.stdin.readline().split())) for _ in range(n)]
+n = int(input())
+# 수업(시작시간 , 끝시간) 입력
+times = [tuple(map(int, input().split())) for _ in range(n)]
 # 중요 - 수업 시간 시작 시간을 기준으로 정렬
 times.sort()
 
@@ -21,7 +24,7 @@ rooms = [] # 주의 - heapq로 사용할거여도 일단 리스트로 선언
 # 중요 - 첫번째 수업을 우선순위 큐에 추가
     # 우선순위 큐 : 수업의 끝 시간들이 정렬 상태를 유지할 수 있도록함
 heapq.heappush(rooms, times[0][1])
-# 수업 시간을 반복하면서
+# 수업들을 반복하면서
 for i in range(1, n):
     # 만약 현재 수업의 시작시간이 강의실 수업의 끝 시간보다 같거나 이후이면
     if times[i][0] >= rooms[0]:
