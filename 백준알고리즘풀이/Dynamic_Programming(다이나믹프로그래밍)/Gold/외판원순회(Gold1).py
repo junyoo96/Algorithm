@@ -1,5 +1,7 @@
 # 9:44~ / 아이디어 생각 못함
-# 참고 : https://velog.io/@kimdukbae/BOJ-2098-%EC%99%B8%ED%8C%90%EC%9B%90-%EC%88%9C%ED%9A%8C-Python
+# 참고
+    # https://velog.io/@kimdukbae/BOJ-2098-%EC%99%B8%ED%8C%90%EC%9B%90-%EC%88%9C%ED%9A%8C-Python
+    # https://vitriol95.github.io/posts/boj2098/
 
 # n : 도시 개수
     # 도시들 사이에 길(없을 수도 있음)
@@ -20,102 +22,135 @@ input = sys.stdin.readline
 n = int(input())
 dists = [list(map(int, input().split())) for _ in range(n)]
 # n개의 비트를 모두 켜기(on)
-    # 1 : 방문했음
+    # 1 : 방문함
     # 0 : 방문안함
+# 중요 - 모두 방문한 비트를 표시하기 위해 사용
+    # n = 4일 때, 모두 방문한 비트는 1111이 되어되는데 10진수로 하면 15
+    # 1 << 4 는 10000(2진수)이고, 10진수로 표현하면 16임
+    # 따라서, 16에서 -1을 해주어야 모두 방문한 비트인 1111을 10진수로 표현한 15가 됨
 VISITED_ALL = (1 << n) - 1
 
-# DP를 위한 캐시 초기화
-# 도시의 개수(N)에 대응하고 (1 << N)을 통해 방문한 도시 집합(visited)에 대응
-# cache[N][visited] : N번 -> visited에서 방문 X한 도시 -> 0번 도시(시작도시) 경로 저장한다고 생각하기
-cache = [[None] * (1 << n) for _ in range(n)]
-INF = float('inf') # 무한을 나타내기 위한 변수
+# 중요 - DP를 위한 dp 테이블 초기화
+# 행은 도시의 개수(N), (1 << N)개의 열을 통해 방문한 도시 집합(visited)에 대응
+# dp[i][visited] : 경로가 visited(visited에서 방문처리한 도시가 경로가됨)였고 현재 i라는 도시에 있을 때 필요한 최소 비용
+    # 예시) dp[0][15(1111)]
+        # 0 : 도착도시
+        # 1111 : 모든 도시를 방문 했음
 
+        # 1. 0 -> 1 -> 2 -> 3 -> 0
+        # 2. 0 -> 1 -> 3 -> 2 -> 0
+        # 3. 0 -> 2 -> 1 -> 3 -> 0
+        # 4. 0 -> 2 -> 3 -> 1 -> 0
+        # 5. 0 -> 3 -> 1 -> 2 -> 0
+        # 6. 0 -> 3 -> 2 -> 1 -> 0
+
+        # 이 여섯개의 값이 모두 dp[0][15]를 갱신하는데 쓰이게 됨
+        # 가장먼저 1의 값이 쓰여지게 되고 2~6과정의 값은 이전 값과 비교하여 최소값이 갱신되면 들어오게 됨
+dp = [[None] * (1 << n) for _ in range(n)]
+INF = 1e9 # 무한을 나타내기 위한 변수
+
+# 재귀 방식으로 최소 비용 계산
 def find_path(last, visited):
-    # visited : 도시 방문 여부 집합(비트로 표현, 비트로 표현한 이유는 리스트로 표현했을 때보다 빠르기 때문)
+    # 중요 - visited : 도시 방문 여부 집합(비트로 표현, 비트로 표현한 이유는 리스트로 표현했을 때보다 빠르기 때문)
         # 예시
         # n(도시의 수)가 8일 때, 11110000으로 표현하면
         # 0,1,2,3번 도시는 방문하지 않았고, 4,5,6,7번 도시는 방문했다는 것을 표현함
         # 여기서 방문한 중간경로의 구체적인 순서는 중요하지 않음
+
+    # 만약 모든 도시를 방문했다면
     if visited == VISITED_ALL:
         # 마지막 방문 도시 출발 - 0번째(출발 도시) 사이에 경로가 존재하면, 경로 값을 반환
             # or 연산자
                 # 연산자를 통해 마지막 방문 도시와 0번째(시작도시) 사이의 경로가 존재하면 경로값을 반환하고
                 # 길이 없다면 무한값을 반환해서 답이 될 수 없게 함
+            # 주의
+                # dists[last][0]가 0인 경우, OR 연산해서 INF 반환
+                # dists[last][0]가 0이 아닌 경우, OR 연산해서 dists[last][0] 반환
         return dists[last][0] or INF # 마지막 도착 도시에서 출발 도시인 0으로 가야됨(문제 조건)
 
-    # DP 사용
-    # cache값이 None이 아니라는 것은 last와 visited 계산이 이미 수행됐고, 중복호출 되었다는 뜻 -> 다시 계산하지 않고 값만 바로 반환하도록해서 중복계산을 없애 효율성 높음
-    if cache[last][visited] is not None:
-        return cache[last][visited]
+    # 중요 - DP 사용
+    # dp값이 None이 아니라는 것은 last와 visited 계산이 이미 수행됐고, 중복호출 되었다는 뜻 -> 다시 계산하지 않고 값만 바로 반환하도록해서 중복계산을 없애 효율성 높음
+        # 즉, visited와 같은 경로를 거쳐서 현재 도시(last)까지의 최소 거리가 이미 계산되었으므로 중복계산하지 않고 최소거리를 바로 반환
+    if dp[last][visited] is not None:
+        return dp[last][visited]
 
     # 방문하지 않은 모든 도시를 모두 방문해서 그중 비용의 최소값을 선택해야함
     tmp = INF
+    # 도시를 반복하면서
     for city in range(n):
         # 만약 해당 도시를 아직 방문하지 않았고, 해당 도시까지의 길이 존재한다면
-            # visited & (1 << city) == 0 : 만약 해당 도시를 아직 방문하지 않았다면
-            #  cities[last][city] != 0 : 길이 없지 않다면(길이 없는 경우는 0으로 표시하므로)
+            # 주의 - visited & (1 << city) == 0 : 만약 해당 도시를 아직 방문하지 않았다면
+                # 1 << city : city 번호에 해당하는 비트 위치만 1로 표시
+                # vistied와 & 연산을 수행시,
+                    # visited에서 해당 비트위치가 1이라면(방문했다면), 결과가 1
+                    # visited에서 해당 비트위치가 0이라면(방문하지 않았다면), 결과가 0
+            # cities[last][city] != 0 : 길이 없지 않다면(길이 없는 경우는 0으로 표시하므로)
         if visited & (1 << city) == 0 and dists[last][city] != 0:
+            # visited | (1 << city) : 다음 방문할 도시(city)에 대해 방문처리
+            # tmp = min(tmp, 다음 방문할 도시(city)에서 출발 도시까지의 최소 거리 + 현재 도시(last)에서 다음 방문할 도시(city)까지의 거리
             tmp = min(tmp, find_path(city, visited | (1 << city)) + dists[last][city])
-    # 모든 도시를 방문하고 최소로 경신된 tmp를 cache에 저장
-    cache[last][visited] = tmp
+    # 모든 도시를 방문하고 최소로 갱신된 tmp를 dp에 저장
+        # visited와 같은 경로를 거쳐서 현재 도시(last)까지의 최소 거리를 갱신
+    dp[last][visited] = tmp
     return tmp
 
 # 점화식 시작
     # start : 0번 인덱스의 도시를 시작 도시로 지정
         # 시작도시는 어디가 되어도 결국 정답 경로를 찾게되기 때문
-    # visited : 방문 도시 비트로 표현
+    # 주의 - visited : 방문 도시 비트로 표현
+        # 1 << 0 : 결과는 1(비트로는 0001)이므로, 비트의 0번째를 1로 표시함으로써 첫번째 도시를 방문했다는 표시
 answer = find_path(0, 1 << 0)
 print(answer)
 
 #====================================================================================
-# 방법 2 - 완전탐색으로 풀기
-    # 시간복잡도 : O(N!) - N이 커지면 시간초과
-def tsp(D):
-    N = len(D)
-    inf = float('inf')
-    ans = inf
-    # 모든 도시를 방문했다는 것을 나타내는 비트 생성
-        # n개의 비트를 모두 1로 켜기(on)
-        # 1 : 방문했음
-        # 0 : 방문안함
-    VISITED_ALL = (1 << N) - 1
-
-    # 각 도시를 방문하는 재귀함수
-    def find_path(start, last, visited, tmp_dist):
-        # start : 순회 시작노드
-        # last : 현재까지 방문한 중간 경로의 마지막 방문 도시
-        # visited : 도시 방문 여부 집합(2진수로 표현)
-            # 예시
-                # n(도시의 수)가 8일 때, 11110000으로 표현하면
-                # 0,1,2,3번 도시는 방문하지 않았고, 4,5,6,7번 도시는 방문했다는 것을 표현함
-        # tmp_dist : 중간경로까지의(지금까지 순회 비용)
-
-        nonlocal ans
-        # 만약 모든 도시를 방문했다면
-        if visited == VISITED_ALL:
-            # 마지막 방문 도시에서 시작 도시까지의 비용 계산
-            return_home_dist = D[last][start] or inf
-            # 최소값 비교해서 최소값 갱신
-            ans = min(ans, tmp_dist + return_home_dist)
-            # 종료
-            return
-
-        # 모든 도시를 방문하지 않은 경우, 방문하지 않은 각 도시 방문
-        for city in range(N):
-            # 만약 해당 도시를 아직 방문하지 않았고, 해당 도시까지의 길이 존재한다면
-                # visited & (1 << city) == 0 : 만약 해당 도시를 아직 방문하지 않았다면
-                # D[last][city] != 0 : 길이 없지 않다면(길이 없는 경우는 0으로 표시하므로)
-            if visited & (1 << city) == 0 and D[last][city] != 0:
-                # 해당 도시까지의 길 방문
-                    # visited | (1 << city) : 해당 도시 방문처리
-                    # tmp_dist + D[last][city] : 시작 도시부터 해당 도시까지의 비용
-                find_path(start, city, visited | (1 << city), tmp_dist + D[last][city])
-
-        # 무에서 각 도시를 처음으로 방문하면 해나감
-        # 모든 도시가 시작점이 될 수 있으므로 다 테스트
-        for c in range(N):
-            # 1 << c : 방문 도시를 표현
-            # tmp_dist(중간경로까지의 비용)를 0으로 시작
-            find_path(c, c, 1 << c, 0)
-
-        return ans
+# # 방법 2 - 완전탐색으로 풀기
+#     # 시간복잡도 : O(N!) - N이 커지면 시간초과
+# def tsp(D):
+#     N = len(D)
+#     inf = float('inf')
+#     answer = inf
+#     # 모든 도시를 방문했다는 것을 나타내는 비트 생성
+#         # n개의 비트를 모두 1로 켜기(on)
+#         # 1 : 방문했음
+#         # 0 : 방문안함
+#     VISITED_ALL = (1 << N) - 1
+#
+#     # 각 도시를 방문하는 재귀함수
+#     def find_path(start, last, visited, tmp_dist):
+#         # start : 순회 시작노드
+#         # last : 현재까지 방문한 중간 경로의 마지막 방문 도시
+#         # visited : 도시 방문 여부 집합(2진수로 표현)
+#             # 예시
+#                 # n(도시의 수)가 8일 때, 11110000으로 표현하면
+#                 # 0,1,2,3번 도시는 방문하지 않았고, 4,5,6,7번 도시는 방문했다는 것을 표현함
+#         # tmp_dist : 중간경로까지의(지금까지 순회 비용)
+#
+#         nonlocal answer
+#         # 만약 모든 도시를 방문했다면
+#         if visited == VISITED_ALL:
+#             # 마지막 방문 도시에서 시작 도시까지의 비용 계산
+#             return_home_dist = D[last][start] or inf
+#             # 최소값 비교해서 최소값 갱신
+#             answer = min(answer, tmp_dist + return_home_dist)
+#             # 종료
+#             return
+#
+#         # 모든 도시를 방문하지 않은 경우, 방문하지 않은 각 도시 방문
+#         for city in range(N):
+#             # 만약 해당 도시를 아직 방문하지 않았고, 해당 도시까지의 길이 존재한다면
+#                 # visited & (1 << city) == 0 : 만약 해당 도시를 아직 방문하지 않았다면
+#                 # D[last][city] != 0 : 길이 없지 않다면(길이 없는 경우는 0으로 표시하므로)
+#             if visited & (1 << city) == 0 and D[last][city] != 0:
+#                 # 해당 도시까지의 길 방문
+#                     # visited | (1 << city) : 해당 도시 방문처리
+#                     # tmp_dist + D[last][city] : 시작 도시부터 해당 도시까지의 비용
+#                 find_path(start, city, visited | (1 << city), tmp_dist + D[last][city])
+#
+#         # 무에서 각 도시를 처음으로 방문하면 해나감
+#         # 모든 도시가 시작점이 될 수 있으므로 다 테스트
+#         for c in range(N):
+#             # 1 << c : 방문 도시를 표현
+#             # tmp_dist(중간경로까지의 비용)를 0으로 시작
+#             find_path(c, c, 1 << c, 0)
+#
+#         return answer
