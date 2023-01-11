@@ -1,10 +1,32 @@
 # 9:37~9:47 / 9:47~10:06 (29분)
+# # 12:01~12:24/12:24~12:26 (25분)
 
 # A, B : 각 묶음의 카드 수
 # 각 묶음을 합쳐서 하날 만드는데 A+B 비교횟수 필요
 # answer : 최소한 몇 번의 비교가 필요한지
 # 최적해 방안 : 카드 묶음이 수가 많은 묶음을 합치는 행위를 최대한 적게 해야하므로, 카드수를 기준으로 오름차순 정렬해서 순서대로 합치기
 #======================================================================
+# 개선 코드
+import sys
+import heapq
+input = sys.stdin.reedline
+
+n = int(input())
+queue = [int(input()) for _ in range(n)]
+# 개선 - heapify 사용
+heapq.heapify(queue)
+
+answer = 0
+for _ in range(n - 1):
+    first = heapq.heappop(queue)
+    second = heapq.heappop(queue)
+    compare = first + second
+    answer += compare
+    heapq.heappush(queue, compare)
+
+print(answer)
+#======================================================================
+# 내코드
 import sys
 import heapq
 
@@ -25,24 +47,4 @@ for _ in range(n - 1):
     heapq.heappush(queue, compare)
 
 # answer 출력
-print(answer)
-#======================================================================
-# 개선 코드
-#======================================================================
-import sys
-import heapq
-
-answer = 0
-n = int(sys.stdin.readline())
-queue = [int(sys.stdin.readline()) for _ in range(n)]
-# 개선 - heapify 사용
-heapq.heapify(queue)
-
-for _ in range(n - 1):
-    first = heapq.heappop(queue)
-    second = heapq.heappop(queue)
-    compare = first + second
-    answer += compare
-    heapq.heappush(queue, compare)
-
 print(answer)
