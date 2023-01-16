@@ -25,6 +25,12 @@ Online Judge
 aaaaaaaaaabbbbbbbbbb
 """
 
+# split() 과 split(" ")의 차이
+string = "word1 word2  word3    word4     "
+
+# ['word1', 'word2', 'word3', 'word4']
+
+# ['word1', 'word2', '', 'word3', '', '', 'word4', '', '', '', '']
 
 #================================================================
 # 출력관련
