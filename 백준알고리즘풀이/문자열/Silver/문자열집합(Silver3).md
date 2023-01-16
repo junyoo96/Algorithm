@@ -6,7 +6,7 @@
   - set, dict 같은 hash table 구조(key에 데이터를 저장하는 구조, key를 통해 데이터를 받아오기 때문에 빠름)를 사용
     - set은 key, dict는 key와 value가 있음
   - 이러한 hash는 hashing function(key에 대한 산술 연산을 통해 데이터의 위치를 찾는 함수)을 이용하므로
-    - O(1)에서 최악의 경우 O(n)의 시간 복잡도 갖음
+    - O(1)에서 최악의 경우 O(n)의 시간 복잡도(해시값 충돌이 일어날 경우) 갖음
   
     ![img.png](../이미지/문자열집합_1.png)
 
