@@ -1,3 +1,6 @@
+# 시간초과 틀림
+# stack 아이디어 생각못해서 시간초과나서 틀림
+
 # 폭발문자열
     # 폭발하면 그 문자는 문자열에서 사라지며, 남은 문자열은 합쳐짐
     # 같은 문자를 2개 이상 포함하지 않음
@@ -12,7 +15,6 @@
 #===============================================================
 # 최적화 코드
 import sys
-
 input = sys.stdin.readline
 
 answer = ""
@@ -22,7 +24,7 @@ string = input().rstrip() # 주의 - rstrip(readline() 입력받을시 맨끝에
 bomb_string = input().rstrip()
 bomb_string_len = len(bomb_string)
 
-# 중요 - 시간 제한 때문에 stack으로 문자열 폭발 구현 - O(N) 소요
+# 중요, 주의 - 시간 제한 때문에 stack으로 문자열 폭발 구현 - O(N) 소요
 stack = []
 for char in string: # O(N)
     stack.append(char)
