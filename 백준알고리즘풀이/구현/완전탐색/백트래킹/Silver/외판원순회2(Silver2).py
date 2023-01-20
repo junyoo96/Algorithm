@@ -1,3 +1,5 @@
+# 11:36~12:05 / 12:05~ - 아이디어는 맞았고 구현은 거의 맞았는데 주의 코드 로직을 놓쳐서 못했음
+
 # 백트래킹(이걸로 풀기)
 import sys
 
@@ -14,7 +16,7 @@ def dfs_backtracking(start, next, value, visited):
 
     # 만약 방문한 도시가 전체 도시의 개수와 같다면 순회 완료했다는 의미이므로
     if len(visited) == N:
-        # 마지막 도시에서 출발 도시로 가는 길이 있다면
+        # 주의 - 마지막 도시에서 출발 도시로 가는 길이 있다면
         if travel_cost[next][start] != 0:
             # 현재까지의 비용에 출발도시로 가는 비용을 더해서 최소값과 비교해 갱신
             min_value = min(min_value, value + travel_cost[next][start])
