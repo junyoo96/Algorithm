@@ -70,11 +70,11 @@ for i in range(1, m):
 
 # 네 번째 경우: 세로 2분할 후 왼쪽 가로로 분할
 # O(N*M)
-for i in range(1, n):
-    for j in range(1, m):
-        r1 = sum_area(1, 1, i, j) # 왼쪽 위쪽 직사각형
-        r2 = sum_area(i + 1, 1, n, j) # 왼쪽 아래쪽 직사각형
-        r3 = sum_area(1, j + 1, n, m) # 오른쪽 직사각형
+for i in range(1, m):
+    for j in range(1, n):
+        r1 = sum_area(1, 1, j, i) # 왼쪽 위쪽 직사각형
+        r2 = sum_area(j + 1, 1, n, i) # 왼쪽 아래쪽 직사각형
+        r3 = sum_area(1, i + 1, n, m) # 오른쪽 직사각형
         # 만약 각 합의 곱이 현재 최댓값보다 크다면 최댓값 갱신
         answer = max(answer, r1 * r2 * r3)
 
