@@ -13,7 +13,7 @@
 # answer : A에서 B로 변환하기 위해 필요한 최소한의 명령어 나열 출력(여러가지면, 아무거나 하나 출력)
 # bfs로 풀기
 
-# Pypy3로 돌려야 시간초과 안남
+# 중요 - Pypy3로 돌려야 시간초과 안남!!!
 #=======================================================
 # 최적화 코드
 import sys
@@ -28,12 +28,12 @@ def process_command(num, command):
         num -= 1
         if num < 0:
             num = 9999
-    elif command == 'L': # 중요 - 왼쪽으로 회전
+    elif command == 'L': # 중요, 주의 - 왼쪽으로 회전
         front = num % 1000
         back = num // 1000
         num = front * 10 + back
 
-    else: # 중요 - 오른쪽으로 회전
+    else: # 중요, 주의 - 오른쪽으로 회전
         front = num % 10
         back = num // 10
         num = front * 1000 + back
@@ -98,27 +98,11 @@ def process_command(num, command):
         if num == 0:
             num = 9999
     elif command == 'L': # 왼쪽으로 회전
-        # str_num = list(str(num))
-        # list_num = ['0'] * (4 - len(str_num)) + str_num
-        # tmp_num = ['0'] * 4
-        #
-        # for i in range(3, -1, -1):
-        #     tmp_num[(i - 1) % 4] = list_num[i]
-
         front = num % 1000
         back = num // 1000
         num = front * 10 + back
 
     else: # 오른쪽으로 회전
-        # str_num = list(str(num))
-        # list_num = ['0'] * (4 - len(str_num)) + str_num
-        # tmp_num = ['0'] * 4
-        #
-        # for i in range(4):
-        #     tmp_num[(i + 1) % 4] = list_num[i]
-        #
-        # num = int("".join(tmp_num))
-
         front = num % 10
         back = num // 10
         num = front * 1000 + back
