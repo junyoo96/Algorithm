@@ -1,3 +1,6 @@
+# 9:21~9:55 / 10:00~11:15 - 구현이 헷갈리는 부분이 있어 디버깅했지만 정답 안보고 풀음(에라토스테네스의 체 모를 때 풀은거)
+# 11:14~11:35 / 11:35~12:12 - 에라토스테네스의 체 사용해서 제대로 풀음
+
 # 최적화 코드
 import math
 from collections import deque
@@ -62,92 +65,95 @@ for _ in range(t):
 
 #================================================================================
 # 내코드
-# 9:21~9:55 / 10:00~11:15 - 구현이 헷갈리는 부분이 있어 디버깅했지만 정답 안보고 풀음
+# 11:14~11:35 / 11:35~12:12
 
-# n (1000~9999)
-# 바꾸는 과정에서도 4자리 소수 유지
-
-# 1000만 미만 안됨
-# answer : 두 소수 사이에 변환에 필요한 최소 횟수
-# bfs 사용해 해결
-# ===============================================
+# 네자리 소수만 주어진다고 가정(1000~9999)
+# 바꾸는 과정에서도 소수여야되고, 1000미만이면 안됨
+# answer : 두 소수 사이의 변환에 필요한 최소 횟수 출력
+# 불가능한 경우 Impossible 출력
+# ==============================================
+import math
 from collections import deque
 
-# testcase 개수 입력
+# 0~9999까지의 소수 계산 리스트 생성(True)
+primes = [True] * 10000
+# 0, 1은 False
+primes[0] = False
+primes[1] = False
+# 2부터 9999까지 반복하면서
+for i in range(2, int(math.sqrt(10000))):
+    # 현재수의 2배부터 9999까지 배수만큼 건너띄면서 반복하면서
+    for j in range(i * 2, 10000, i):
+        # 만약 방문하는 수가 리스트에서 True라면
+        if primes[j]:
+            # 방문하는 수에 대해 False로 바꾸기
+            primes[j] = False
+
+# t입력
 t = int(input())
-# 1000~9999까지의 리스트(0~10000) 생성해서 소수이면 1, 아니면 0으로 표시
-prime_check = [0] * 10000
-for i in range(1000, 10000):
-    for j in range(2, i // 2 + 1):
-        if i % j == 0:
-            break
-        if j == (i // 2):
-            prime_check[i] = 1
-
-# testcase 개수 만큼 반복하면서
+# t를 반복하면서
 for _ in range(t):
-    # answer
-    answer = "Impossible"
-    # 1000~9999까지 방문 여부 표시 리스트 생성
-    visited = [0] * 10000
+    # a,b 입력
+    a, b = map(int, input().split())
+    # deque 생성 # deque에 (시작숫자, 바꾼횟수) 추가
+    queue = deque([(a, 0)])
+    # 방문리스트 생성(9999)
+    visited = [False] * 10000
+    # 시작숫자 방문처리
+    visited[a] = True
 
-    # 시작, 목표 소수 입력
-    start, target = map(int, input().split())
-    # deque 생성하고 (시작소수,바꾼횟수(1)) 넣기
-    queue = deque()
-    queue.append((start, 0))
-    # 현재 숫자 방문처리
-    visited[start] = 1
-
+    answer = 0
     # while True
     while queue:
-        # deque에서 현재소수 popleft
-        current, count = queue.popleft()
-        visited[current] = 1
-        # 만약 현재소수가 목표소수와 같다면
-        if current == target:
-            answer = count
+        # 현재숫자, 바꾼횟수 = deque에서 꺼내기
+        num, change = queue.popleft()
+        # print(num, change)
+        # 만약 현재 숫자가 b라면
+        if num == b:
+            # answer = 바꾼횟수
+            answer = change
             # break
             break
-        # 첫째자리 수 바꾸면서 소수이면 deque에 넣기
+
+        # 첫번째자리(1~9)
         for i in range(1, 10):
-            changed = list(str(current))
-            # 만약 소수이고 아직 방문하지 않았다면
-            changed[0] = str(i)
-            changed = int(''.join(changed))
-            if prime_check[changed] == 1 and not visited[changed]:
-                # deque에 넣기
-                queue.append((changed, count + 1))
+            tmp = str(num)
+            changed_num = int(str(i) + tmp[1:])
+            # 만약 해당 자리 바꾼 수를 방문한적이 없고 소수라면
+            if not visited[changed_num] and primes[changed_num]:
+                # deque에 (바꾼숫자, 바꾼횟수 + 1) 추가
+                queue.append((changed_num, change + 1))
+                visited[changed_num] = True
 
-        # 두째자리 수 바꾸면서 소수이면 deque에 넣기
-        for i in range(0, 10):
-            changed = list(str(current))
-            changed[1] = str(i)
-            changed = int(''.join(changed))
-            # 만약 소수이고 아직 방문하지 않았다면
-            if prime_check[changed] == 1 and not visited[changed]:
-                # deque에 넣기
-                queue.append((changed, count + 1))
+        # 두번째,세번째, 네번째 자리(0~9)
+        for i in range(10):
+            tmp = str(num)
+            changed_num = int(tmp[0] + str(i) + tmp[2:])
+            # 만약 해당 자리 바꾼 수를 방문한적이 없고 소수라면
+            if not visited[changed_num] and primes[changed_num]:
+                # deque에 (바꾼숫자, 바꾼횟수 + 1) 추가
+                queue.append((changed_num, change + 1))
+                visited[changed_num] = True
 
-        # 세째자리 수 바꾸면서 소수이면 deque에 넣기
-        for i in range(0, 10):
-            changed = list(str(current))
-            changed[2] = str(i)
-            changed = int(''.join(changed))
-            # 만약 소수이고 아직 방문하지 않았다면
-            if prime_check[changed] == 1 and not visited[changed]:
-                # deque에 넣기
-                queue.append((changed, count + 1))
+        for i in range(10):
+            tmp = str(num)
+            changed_num = int(tmp[:2] + str(i) + tmp[-1])
+            # 만약 해당 자리 바꾼 수를 방문한적이 없고 소수라면
+            if not visited[changed_num] and primes[changed_num]:
+                # deque에 (바꾼숫자, 바꾼횟수 + 1) 추가
+                queue.append((changed_num, change + 1))
+                visited[changed_num] = True
 
-        # 넷째자리 수 바꾸면서 소수이면 deque에 넣기
-        for i in range(0, 10):
-            changed = list(str(current))
-            changed[3] = str(i)
-            changed = int(''.join(changed))
-            # 만약 소수이고 아직 방문하지 않았다면
-            if prime_check[changed] == 1 and not visited[changed]:
-                # deque에 넣기
-                queue.append((changed, count + 1))
+        for i in range(10):
+            tmp = str(num)
+            changed_num = int(tmp[:-1] + str(i))
+            # 만약 해당 자리 바꾼 수를 방문한적이 없고 소수라면
+            if not visited[changed_num] and primes[changed_num]:
+                # deque에 (바꾼숫자, 바꾼횟수 + 1) 추가
+                queue.append((changed_num, change + 1))
+                visited[changed_num] = True
 
-    # print(answer)
-    print(answer)
+    if answer == 0 and not visited[b]:
+        print("Impossible")
+    else:
+        print(answer)
