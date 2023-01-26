@@ -1,4 +1,5 @@
 # 9:20~ / 아이디어 생각 못함
+# 9:55~10:21 / 10:21~10:55
 
 # answer : A물통이 비어있을 때, C물통에 담겨있는 물의 양의 종류를 모두 구하기
 #=================================================================================================
@@ -90,3 +91,71 @@ bfs()
 answer.sort()
 # * : 리스트를 공백 간격 출력으로 처리
 print(*answer)
+#=====================================================================
+# 2번째 풀이에서 성공한 내 코드
+# 9:55~10:21 /10:21~10:55
+
+# A, B, C 물통(1~200)
+# A, B는 비어있음
+# C는 가득차 있음
+# 한 물통이 비거나 다른 한 물통이 가득찰 때까지 물을 부을 수 있음
+# answer : A통이 비어있을 때, C 물통에 담겨 있을 수 있는 물의 양 모두 구하기, 용량 오름차순 정렬
+
+# =========================
+from collections import deque
+
+# 물통 크기 리스트(a,b,c)
+bottle_size = list(map(int, input().split()))
+# deque에 현재 상태 추가
+queue = deque()
+queue.append([0, 0, bottle_size[2]])
+# visited 리스트 생성
+visited = []
+visited.append([0, 0, bottle_size[2]])
+
+# answer 변수(set)
+answer = []
+# while queue
+while queue:
+    # 물통리스트 = deque에서 꺼내기
+    bottles = queue.popleft()
+
+    # 만약 현재 a 물통(물통리스트 첫번째)이 0이라면
+    if bottles[0] == 0:
+        # answer에 추가
+        answer.append(bottles[2])
+
+    # 3번 반복하면서 - 시작물통
+    for i in range(3):
+        # 3번 반복하면서 - 타겟물통
+        for j in range(3):
+            bottles_tmp = bottles[:]
+            # 만약 현재 시작물통의 물이 타겟물통과 같지 않다면
+            if i != j:
+                # 물 붓는 것 처리
+                # 만약 현재 타겟물통의 양 + 시작물통의 양이 타겟물통크기보다 작거나 같다면
+                if bottles_tmp[j] + bottles_tmp[i] <= bottle_size[j]:
+                    # 타겟물통의양 = 타겟물통의 양 + 시작물통의 양
+                    bottles_tmp[j] += bottles_tmp[i]
+                    # 시작물통의양 = 0
+                    bottles_tmp[i] = 0
+                # else
+                else:
+                    # 시작물통의양 = 타겟물통의 양 + 시작물통의양 - 타겟물통크기
+                    bottles_tmp[i] = bottles_tmp[j] + bottles_tmp[i] - bottle_size[j]
+                    # 타겟물통의양 = 타겟물통크기
+                    bottles_tmp[j] = bottle_size[j]
+
+                # 현재 상태가 visited리스트에 없다면
+                if bottles_tmp not in visited:
+                    # deque에 추가
+                    queue.append(bottles_tmp)
+                    # visited리스트에 현재 상태 추가
+                    visited.append(bottles_tmp)
+
+# answer 출력
+answer.sort()
+print(*answer)
+
+
+
