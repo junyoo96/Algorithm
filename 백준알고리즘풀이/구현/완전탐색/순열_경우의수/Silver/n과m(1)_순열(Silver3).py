@@ -3,19 +3,20 @@ def dfs():
     if len(s) == m:
         print(*s)
 
-    for i in range(1, n + 1):
+    for i in range(n):
         if visited[i]:
             continue
 
         visited[i] = True
-        s.append(i)
+        s.append(nums[i])
         dfs()
         s.pop()
         visited[i] = False
 
 n, m = map(int, input().split())
 s = []
-visited = [False] * (n+1)
+nums = [i for i in range(1, n + 1)]
+visited = [False] * n
 
 dfs()
 
