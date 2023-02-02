@@ -17,6 +17,18 @@ rotated_arr = [[0] * length for _ in range(length)]
 #===============================================================================
 # 반시계방향 회전(90도)
 # 여기 구현
+'''
+0 2 -> 2 0
+1 2 -> 2 1
+
+2 0 -> 4 2
+2 1 -> 3 2
+'''
+
+for i in range(length):
+    for j in range(length):
+        rotated_arr[length - j - 1][i] = arr[i][j]
+
 show(rotated_arr)
 """
 출력

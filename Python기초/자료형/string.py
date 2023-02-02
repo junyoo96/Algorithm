@@ -22,7 +22,7 @@ age = 30
 a = "hobby"
 #2
 
-# 문자열에서 특정 문자 index 찾기(2가지 방법) - 틀림 X
+# 문자열에서 특정 문자 index 찾기(2가지 방법) - 틀림 X X
 # 첫번째 방법
 a = "Python is the best choice"
 # b찾기
@@ -82,18 +82,10 @@ b = "a:b:c:d"
 # ASCII 코드 값 → 문자
 # 98 -> b
 #=============================================================
-# Python 정규표현식 - 틀림 X X X
+# Python 정규표현식 - 틀림 X X X X
 def inPalindrome(str):
     return str
 
 a = '0Madam, I\'m Adam0'
 print(inPalindrome(a))
 #0madamimadam0
-
-
-
-
-
-
-
-
