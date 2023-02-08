@@ -14,6 +14,7 @@ for _ in range(n):
 
             if new_word.count(word[i]) > 0:
                 error += 1
+                break
 
     if error == 0:
         answer += 1
