@@ -22,7 +22,6 @@ targets = list(map(int, input().split()))
 
 # 이분탐색 함수(타겟숫자, 시작위치, 끝위치)
 def binary_search(target, start, end):
-    count = 0
     while start <= end:
         mid = (start + end) // 2
 
@@ -39,7 +38,7 @@ def binary_search(target, start, end):
 # m 숫자를 반복하면서
 dic = {}
 for target in targets:
-    if target not in dic: # 중요 - 이거없으면 시간초과남, dictionary 사용해서 해당값을 이미 찾았다면 binary_search 진행을 진행하지 않으므로써, 시간 초과 해결 가능
+    if target not in dic: # 중요, 주의 - 이거없으면 시간초과남, dictionary 사용해서 해당값을 이미 찾았다면 binary_search 진행을 진행하지 않으므로써, 시간 초과 해결 가능
         # answer = 이분탐색 함수호출(m, 시작위치, 끝위치)
         dic[target] = binary_search(target, 0, n - 1)
 

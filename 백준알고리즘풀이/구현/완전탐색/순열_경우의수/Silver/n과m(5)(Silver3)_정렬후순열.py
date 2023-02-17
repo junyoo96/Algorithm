@@ -4,21 +4,19 @@ def dfs():
         print(*s)
 
     for i in range(n):
-        if visited[i]:
-            continue
-
-        s.append(nums[i])
-        visited[i] = True
-        dfs()
-        s.pop()
-        visited[i] = False
+        if not visited[i]:
+            s.append(nums[i])
+            visited[i] = True
+            dfs()
+            s.pop()
+            visited[i] = False
 
 
 n, m = map(int, input().split())
 nums = list(map(int, input().split()))
 nums.sort()
 s = []
-visited = [False] * 10000
+visited = [False] * n
 
 dfs()
 

@@ -1,4 +1,5 @@
 # 10:58~11:30/11:30~ - 틀림(순열조합 문제인줄 알고 dfs 사용했다가 시간초과)
+# 3:25~3:40/3:40~3:46
 
 # n : 단어 개수
 # 단어
@@ -17,9 +18,7 @@ from collections import defaultdict
 
 n = int(input())
 # 단어를 저장할 리스트
-words = []
-for _ in range(n):
-    words.append(input().rstrip())
+words = [input().rstrip() for _ in range(n)]
 
 # 단어 내의 알파벳별로 가중치 수를 저장하는 변수
 dictionary = defaultdict(lambda: 0)

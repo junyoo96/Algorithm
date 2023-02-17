@@ -1,4 +1,5 @@
 # 1:37~
+# 4:21~4:42/4:42~ - 거의 다 맞았지만 주의부분 코드 빼먹어서 틀림
 
 # v : 정점개수(1~20,000)
 # e : 간선개수(1~300,000)
@@ -35,7 +36,8 @@ def dijkstra(start):
 
     while queue:
         distance, current = heapq.heappop(queue)
-        if distances[current] < distance:
+        # 만약 거리저장리스트에 저장된 현재정점까지의 거리가 queue에서 나온 현재정점까지의 거리보다 작다면, 이미 해당 정점까지의 거리에 대해 처리가 완료되었다는 의미이므로 스킵하기
+        if distances[current] < distance: # 주의 - 이거 빼먹어서 시간초과남
             continue
 
         for next_idx, next_distance in graph[current]:

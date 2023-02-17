@@ -4,14 +4,12 @@ def dfs():
         print(*s)
 
     for i in range(n):
-        if visited[i]:
-            continue
-
-        visited[i] = True
-        s.append(nums[i])
-        dfs()
-        s.pop()
-        visited[i] = False
+        if not visited[i]:
+            s.append(nums[i])
+            visited[i] = True
+            dfs()
+            s.pop()
+            visited[i] = False
 
 n, m = map(int, input().split())
 s = []

@@ -2,6 +2,7 @@
 def dfs(idx):
     if len(s) == m:
         print(*s)
+        return
 
     # 조합은 (1,2)와 (2,1)이 같으므로 현자idx보다 오른쪽에 있는 idx만 처리하도록 start 변수 사용
     for i in range(idx, n):
