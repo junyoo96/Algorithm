@@ -50,7 +50,7 @@ for i in range(n):
 answer = 0
 # 벽 후보를 반복하면서
 for walls in combinations(positions, 3):
-    arr_tmp = copy.deepcopy(arr)
+    arr_tmp = copy.deepcopy(arr) # 주의 - 깊은복사 사용법
 
     # 벽 설치
     for w_x, w_y in walls:
