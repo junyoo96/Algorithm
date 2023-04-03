@@ -1,0 +1,9 @@
+SELECT info.food_type, info.rest_id, info.rest_name, info.favorites
+FROM rest_info as info,
+    (
+        SELECT food_type, MAX(favorites) as favorites
+        FROM rest_info
+        GROUP BY food_type
+    ) as info2
+WHERE info.food_type = info2.food_type and info.favorites = info2.favorites
+ORDER BY info.food_type DESC;

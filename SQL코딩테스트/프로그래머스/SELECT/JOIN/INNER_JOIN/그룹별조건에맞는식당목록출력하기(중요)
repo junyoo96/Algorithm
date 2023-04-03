@@ -1,0 +1,10 @@
+SELECT MEMBER_NAME, REVIEW_TEXT, date_format(REVIEW_DATE, '%Y-%m-%d')
+FROM MEMBER_PROFILE m
+JOIN REST_REVIEW r ON m.MEMBER_ID = r.MEMBER_ID
+WHERE m.MEMBER_ID = (SELECT MEMBER_ID
+                     FROM REST_REVIEW
+                     GROUP BY MEMBER_ID -- member_id를 기준으로 그룹
+                     ORDER BY COUNT(REVIEW_ID) DESC -- review_id를 기준으로 정렬
+                     LIMIT 1
+                    )
+ORDER BY REVIEW_DATE, REVIEW_TEXT;

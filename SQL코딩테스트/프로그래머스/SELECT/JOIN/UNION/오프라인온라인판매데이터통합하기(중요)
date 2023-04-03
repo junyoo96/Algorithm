@@ -1,0 +1,9 @@
+select date_format(sales_date, '%Y-%m-%d') sales_date, product_id, user_id, sales_amount
+from online_sale
+where date_format(sales_date, '%Y-%m') = '2022-03'
+union -- UNION 함수 : 양쪽 테이블 합치기
+select date_format(sales_date, '%Y-%m-%d')sales_date, product_id, NULL as user_id, sales_amount -- 특정 컬럼 NULL값으로 바꾸는 방법
+from offline_sale
+where date_format(sales_date, '%Y-%m') = '2022-03'
+
+order by sales_date, product_id, user_id;

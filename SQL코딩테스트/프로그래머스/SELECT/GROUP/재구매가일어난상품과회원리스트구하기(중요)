@@ -1,0 +1,5 @@
+SELECT user_id, product_id
+FROM online_sale
+GROUP BY user_id, product_id -- 먼저 user_id와 product_id로 grop을 묶고,
+HAVING COUNT(user_id) >= 2 -- 묶인 group 개수가 2개이상이면 중복구매
+ORDER BY user_id ASC, product_id DESC
