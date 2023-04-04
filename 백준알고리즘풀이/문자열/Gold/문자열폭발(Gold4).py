@@ -1,5 +1,6 @@
 # 시간초과 틀림
 # 3:07~3:15/3:15~3:20
+# 3:42~3:57/3:57~ - stack 생각 못해서 시간초과
 
 # stack 아이디어 생각못해서 시간초과나서 틀림
 
@@ -33,7 +34,7 @@ for char in string: # O(N)
     # 만약 넣은 문자열중 최근 문자열들이 폭탄 문자열과 같다면
     if ''.join(stack[-bomb_string_len:]) == bomb_string: # 중요 - 맨 뒤부터 리스트 값 가져오는 방법
         for _ in range(bomb_string_len): # O(1) - 상수시간
-            stack.pop()
+            stack.pop() # 주의
 
 if stack:
     answer = ''.join(stack)

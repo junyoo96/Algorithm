@@ -1,0 +1,10 @@
+SELECT c.car_id, c.car_type, CAST(c.daily_fee * (100 - p.discount_rate) / 100 * 30 AS signed) AS fee -- 계산한 값이 실수형이므로 소수점이 붙어있기 때문에 cast 함수를 사용해 signed(정수형 = 0, 양수, 음수)으로 변경
+FROM car_rental_company_car c
+LEFT JOIN car_rental_company_rental_history h ON c.car_id = h.car_id
+LEFT JOIN car_rental_company_discount_plan p ON c.car_type = p.car_type
+WHERE p.duration_type = '30일 이상'
+AND c.car_type IN ('세단', 'SUV')
+AND CAST(c.daily_fee * (100 - p.discount_rate) / 100 * 30 AS signed) BETWEEN 500000 AND 2000000
+GROUP BY c.car_id
+HAVING MAX(h.end_date) < '2022-11-01 00:00:00' -- group by 하는 이유는 문제에서 주어진 조건을 만족하는 자동차의 ID, 종류, 대여금액을 뽑는 것이므로 중복된 car_id는 어차피 id, 종류, 대여금액이 동일하므로 중복을 제거해야함, 따라서 group by를 car_id 기준으로 하면서 하나의 car_id만 나오게 한것
+ORDER BY fee DESC, c.car_type ASC, c.car_id DESC;

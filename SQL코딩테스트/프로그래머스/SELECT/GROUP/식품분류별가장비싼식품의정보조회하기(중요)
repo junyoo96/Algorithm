@@ -1,0 +1,11 @@
+SELECT fp1.category, fp1.price, fp1.product_name
+FROM food_product fp1
+JOIN
+    (
+        SELECT category, MAX(price) as max_price, product_name
+        FROM food_product
+        GROUP BY category
+    ) AS fp2
+ON fp1.category = fp2.category AND fp1.price = fp2.max_price
+WHERE fp1.category IN ('과자', '국', '김치', '식용유')
+ORDER BY max_price DESC;
