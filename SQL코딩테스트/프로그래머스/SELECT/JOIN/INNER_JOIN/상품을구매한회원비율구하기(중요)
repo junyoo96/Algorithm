@@ -1,0 +1,8 @@
+-- 10:58~
+
+SELECT YEAR(o.sales_date) AS year, MONTH(o.sales_date) AS month, COUNT(DISTINCT u.user_id) AS puchased_users, ROUND(COUNT(DISTINCT u.user_id) / (SELECT COUNT(*) FROM user_info WHERE YEAR(joined) = 2021), 1) AS puchased_ratio -- DISTINCT 사용 위치 주의
+FROM user_info u
+JOIN online_sale o ON u.user_id = o.user_id
+WHERE YEAR(u.joined) = 2021
+GROUP BY YEAR(o.sales_date), MONTH(o.sales_date)
+ORDER BY year, month

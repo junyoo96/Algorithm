@@ -5,15 +5,15 @@ def dfs(idx):
         return
 
     for i in range(idx, n):
-        if i >= idx:
-            s.append(nums[i])
-            dfs(i)
-            s.pop()
+        s.append(nums[i])
+        dfs(i)
+        s.pop()
 
 
 n, m = map(int, input().split())
-s = []
 nums = [i for i in range(1, n + 1)]
+s = []
+
 dfs(0)
 
 #====================================
