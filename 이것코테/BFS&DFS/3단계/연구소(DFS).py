@@ -1,4 +1,5 @@
 # 10:30~11:00/11:00~11:12
+# 11:16~11:40/11:40~ // 틀림 - deepcopy 대신 copy사용해서 틀린듯
 
 # n, m : 연구소 크기
 # 연구소
@@ -50,7 +51,7 @@ for i in range(n):
 answer = 0
 # 벽 후보를 반복하면서
 for walls in combinations(positions, 3):
-    arr_tmp = copy.deepcopy(arr)
+    arr_tmp = copy.deepcopy(arr) # 주의 - 깊은복사하려면 deepcopy 해야됨
 
     # 벽 설치
     for w_x, w_y in walls:
