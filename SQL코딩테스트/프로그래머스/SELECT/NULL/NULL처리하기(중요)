@@ -1,0 +1,2 @@
+SELECT animal_type, IFNULL(name, "No name"), sex_upon_intake -- IFNULL(처리할 컬럼명, 대신할 값)
+FROM animal_ins;

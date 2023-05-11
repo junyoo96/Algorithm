@@ -1,0 +1,6 @@
+SELECT YEAR(o.sales_date) as year, MONTH(o.sales_date) as month, u.gender, COUNT(DISTINCT o.user_id) AS users -- 회원 ID가 중복되므로 DISTINCT 사용해야함
+FROM online_sale o
+JOIN user_info u ON o.user_id = u.user_id
+WHERE u.gender IS NOT NULL
+GROUP BY year, month, u.gender
+ORDER BY year, month, u.gender;

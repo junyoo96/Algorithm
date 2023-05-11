@@ -1,0 +1,7 @@
+SELECT u.user_id, u.nickname, SUM(b.price) AS total_sales
+FROM used_goods_user u
+LEFT JOIN used_goods_board b ON b.writer_id = u.user_id
+WHERE status = 'Done'
+GROUP BY b.writer_id
+HAVING total_sales >= 700000
+ORDER BY total_sales;

@@ -1,0 +1,13 @@
+-- 1.  대여 시작일을 기준으로 2022년 8월부터 2022년 10월까지의 월별 자동차 id 별 총 대여횟수 추출
+WITH T as (
+    SELECT MONTH(start_date) as month, car_id, COUNT(car_id) AS records
+    FROM car_rental_company_rental_history
+    WHERE start_date BETWEEN '2022-08-01' AND '2022-10-31'
+    GROUP BY car_id, month
+)
+
+-- 2. 위의 테이블에서 대여횟수가 5회 이상이고 특정 월의 총 대여횟수가 0이 아닌 자동차만 추출하고 월, 자동차ID 별로 정렬
+SELECT *
+FROM T
+WHERE car_id IN (SELECT car_id FROM T GROUP BY car_id HAVING SUM(records) >= 5) AND T.records > 0
+ORDER BY T.month, T.car_id DESC;

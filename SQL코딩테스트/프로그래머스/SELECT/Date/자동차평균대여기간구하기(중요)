@@ -1,0 +1,5 @@
+SELECT car_id, ROUND((SUM(DATEDIFF(end_date, start_date) + 1) / COUNT(car_id)), 1) AS average_duration -- 날짜간의 차이를 구하기 위해 DATEDIFF 사용
+FROM car_rental_company_rental_history
+GROUP BY car_id
+HAVING average_duration >= 7
+ORDER BY average_duration DESC, car_id DESC;
