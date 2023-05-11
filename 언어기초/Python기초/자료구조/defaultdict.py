@@ -2,10 +2,3 @@
 words = "abbcccdddd"
 
 # 각 알파벳 몇개 있는지 출력 - 틀림 X X X
-from collections import defaultdict
-count = defaultdict(lambda:0)
-
-for word in words:
-    count[word] += 1
-
-print(count)
